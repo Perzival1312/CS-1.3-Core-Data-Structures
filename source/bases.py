@@ -38,7 +38,7 @@ def decode(digits, base):
             result += int(current_num_string_lower.index(digit)) * (base**ind)
         else:
             raise ValueError('{} is not a valid number in base {}'.format(digits, base))
-    return str(result)
+    return result
 
 
 def encode(number, base):
@@ -47,13 +47,14 @@ def encode(number, base):
     base: int -- base to convert to
     return: str -- string representation of number (in given base)"""
     # Handle up to base 36 [0-9a-z]
+    number = int(number)
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     # Handle unsigned numbers only for now
     assert number >= 0, 'number is negative: {}'.format(number)
 
     number += 1
     length = 0
-    current_digit_set = num_string_upper[0:base]
+    current_digit_set = num_string_lower[0:base]
     # gets the length of the number in the new base
     for i in range(number):
         if base**i < number:
@@ -103,7 +104,7 @@ def convert(digits, base1, base2):
     # ...
     # TODO: Convert digits from any base to any base (2 up to 36)
     # ...
-    return 0
+    return encode(decode(digits, base1), base2)
 
 
 def main():
@@ -119,8 +120,8 @@ def main():
         print('{} in base {} is {} in base {}'.format(digits, base1, result, base2))
 
     elif len(args) == 2:
-        print(encode(int(args[0]), int(args[1])))
-        # print(decode(args[0], int(args[1])))
+        # print(encode(int(args[0]), int(args[1])))
+        print(decode(args[0], int(args[1])))
     
     else:
         print('Usage: {} digits base1 base2'.format(sys.argv[0]))
