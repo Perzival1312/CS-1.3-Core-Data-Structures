@@ -50,12 +50,7 @@ def encode(number, base):
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     # Handle unsigned numbers only for now
     assert number >= 0, 'number is negative: {}'.format(number)
-    # TODO: Encode number in binary (base 2)
-    # ...
-    # TODO: Encode number in hexadecimal (base 16)
-    # ...
-    # TODO: Encode number in any base (2 up to 36)
-    # ...
+
     number += 1
     length = 0
     current_digit_set = num_string_upper[0:base]
@@ -73,7 +68,7 @@ def encode(number, base):
         # checkand find larget possible digit that works
         for possibility in reversed(current_digit_set):
             # get possible number
-            num = int(current_digit_set.index(possibility)) * (base**ind)
+            num = int(current_digit_set.index(possibility)) * (base**(len(new_num)-1-ind))
             # if possible number is less than input number
             # meaning that the specified digit can work in 
             # specified position.
@@ -84,9 +79,9 @@ def encode(number, base):
                 number -= num
                 # stop checking possibilities
                 break
-        print(new_num)
     
-    print(''.join(new_num))
+    result = ''.join(new_num)
+    return result    
 
 
 
@@ -124,8 +119,8 @@ def main():
         print('{} in base {} is {} in base {}'.format(digits, base1, result, base2))
 
     elif len(args) == 2:
-        # print(encode(int(args[0]), int(args[1])))
-        print(decode(args[0], int(args[1])))
+        print(encode(int(args[0]), int(args[1])))
+        # print(decode(args[0], int(args[1])))
     
     else:
         print('Usage: {} digits base1 base2'.format(sys.argv[0]))
