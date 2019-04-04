@@ -21,17 +21,19 @@ def decode(digits, base):
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
 
     result = 0
-    dig_arr = []
+    # dig_arr = []
     current_num_string_upper = num_string_upper[0:base]
     current_num_string_lower = num_string_lower[0:base]
 
-    # turn number into array
-    for digit in str(digits):
-        dig_arr.append(digit)
+    # turn number into a reversed array
+    digits = list(digits[::-1])
+    # for digit in str(digits):
+    #     dig_arr.append(digit)
     # reverse the array so that the index is the power of the base
-    dig_arr = dig_arr[::-1]
+    # dig_arr = dig_arr[::-1]
     # create the base 10 number
-    for ind, digit in enumerate(dig_arr):
+    for ind, digit in enumerate(digits):
+        # print(ind, digit)
         if current_num_string_upper.__contains__(digit):
             result += int(current_num_string_upper.index(digit)) * (base**ind)
         elif current_num_string_lower.__contains__(digit):
@@ -39,6 +41,22 @@ def decode(digits, base):
         else:
             raise ValueError('{} is not a valid number in base {}'.format(digits, base))
     return result
+
+# TODO: Can these functions be re-written using binary as the "go-between"
+#       So decode returns binary and encode takes in binary
+# def decode2(digits, base):
+#     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
+
+#     base = 2
+
+#     result = 0
+#     dig_arr = []
+#     current_num_string_upper = num_string_upper[0:base]
+#     current_num_string_lower = num_string_lower[0:base]
+
+
+
+#     return (result, dig_arr, current_num_string_lower, current_num_string_upper)
 
 
 def encode(number, base):
