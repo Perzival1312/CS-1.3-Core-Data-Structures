@@ -35,28 +35,64 @@ def binary_search(array, item):
     # change this to call your implementation to verify it passes all tests
     # Garuntee Sorted
     array = sorted(array)
-    # Just to make debigging eaier
+    # Just to make debugging eaier
     sys.setrecursionlimit(75)
     # Pre-check if not in array b4 search
-    if item not in set(array):
-        return None
+    # if item not in set(array):
+    #     return None
     return binary_search_iterative(array, item)
     # return binary_search_recursive(array, item)
 
 
 def binary_search_iterative(array, item):
     # TODO: implement binary search iteratively here
-    
-    index = len(array) // 2
-    while True:
-        if item == array[index]:
-            return index
-        else:
+    # count = 0
+    # index = (len(array)-1) // 2
+    # print(1 // 2)
+    # prev_ind = len(array)-1
+    # while count < 5:
+    #     # if count > 0:
+    #     #     # print(prev_ind, ' | ', index)
+    #     #     prev_ind = index
+    #     if item == array[index]:
+    #         return index
+    #     else:
+    #         # prev_ind = index
+    #         if item < array[index]:
+    #             print('{} is before {} at index {}'.format(item, array[index], index), ' | c: ', count, ' | p: ', prev_ind)
+    #             prev_ind = index
+    #             index = index // 2
+    #         else:
+    #             print('{} is after  {} at index {}'.format(item, array[index], index), ' | c: ', count, ' | p: ', prev_ind)
+    #             index = (index + prev_ind) // 2
+    #     # prev_ind = index
+    #     count += 1
+    #     print('p ', prev_ind, ' | c', index)
+    #     if prev_ind == index:
+    #         # print(array.index(item))
+    #         return None
+        
+        # print(index)
+
+        right = len(array) - 1
+        left = 0
+        index = (right + left) // 2
+        if array[0] == item:
+            return 0
+        while left < index and index < right:
+            if item == array[index]:
+                return index
+            
             if array[index] > item:
-                index = index // 2
+                right = index - 1 
             else:
-                index = (index + len(array)) // 2
-        print(index)
+                left = index + 1
+
+            index = (right + left) // 2
+
+        return None
+
+
 
     # if equal return index
     # else
@@ -95,7 +131,7 @@ def binary_search_recursive(array, item, left=0, right=None):
 
 
 def main():
-    names = ['Winnie', 'Kojin', 'Brian', 'Nabil', 'Julia', 'Alex', 'Nick']
+    names = ['Alex', 'Brian', 'Julia', 'Kojin', 'Nabil', 'Nick', 'Winnie']
     contain = 'Julia'
     not_contain = 'Jeremy'
 
