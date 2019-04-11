@@ -1,35 +1,133 @@
-#!python
+#!python3
 
-import string
-# Hint: Use these string constants to ignore capitalization and/or punctuation
-# string.ascii_lowercase is 'abcdefghijklmnopqrstuvwxyz'
-# string.ascii_uppercase is 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-# string.ascii_letters is ascii_lowercase + ascii_uppercase
+## ------------BENCHMARKS------------- ##
+# ITERATIVE:
+# 11.4 ms ± 141 µs per loop (mean ± std. dev. of 100 runs, 1000 loops each)
 
+# RECURSIVE:
+# 11.4 ms ± 318 µs per loop (mean ± std. dev. of 100 runs, 1000 loops each)
+
+# ONE-LINER <-- DO NOT DO THIS STUPID SHIT!!
+# 11.7 ms ± 1.06 ms per loop (mean ± std. dev. of 100 runs, 1000 loops each)
+## ------------------------------------ ##
+
+
+## ------------------------------------ ##
+# http://code.activestate.com/recipes/474088/
+## ------------------------------------ ##
+# this is a black box
+# TODO: gain understanding
+class TailRecurseException(BaseException):
+    def __init__(self, args, kwargs):
+        self.args = args
+        self.kwargs = kwargs
+
+def tail_call_optimized(g):
+    """
+    This function decorates a function with tail call
+    optimization. It does this by throwing an exception
+    if it is it's own grandparent, and catching such
+    exceptions to fake the tail call optimization.
+    
+    This function fails if the decorated
+    function recurses in a non-tail context.
+    """
+    def func(*args, **kwargs):
+        # get frame object <-- wtf IS that???
+        f = sys._getframe()
+        # if prev exists and prev,prev exists and what is code?
+        # basically if stack call length > 2 and f.f_code then repeats
+        if f.f_back and f.f_back.f_back \
+        and f.f_back.f_back.f_code == f.f_code:
+            raise TailRecurseException(args, kwargs)
+        else:
+            # vs while True??
+            while 1:
+                try:
+                    # What is all this after here tho??
+                    return g(*args, **kwargs) # <-- something to do with the fact it is a decorator?
+                except TailRecurseException as e:
+                    args = e.args
+                    kwargs = e.kwargs
+    func.__doc__ = g.__doc__
+    return func
+
+## ------------------------------------ ##
+# http://code.activestate.com/recipes/474088/
+## ------------------------------------ ##
+
+import string, sys
+
+LETTERS = frozenset(string.ascii_letters)
 
 def is_palindrome(text):
     """A string of characters is a palindrome if it reads the same forwards and
-    backwards, ignoring punctuation, whitespace, and letter casing."""
-    # implement is_palindrome_iterative and is_palindrome_recursive below, then
-    # change this to call your implementation to verify it passes all tests
+    backwards, ignoring punctuation, whitespace, and letter casing.
+    text - type String."""
+    
     assert isinstance(text, str), 'input is not a string: {}'.format(text)
-    return is_palindrome_iterative(text)
-    # return is_palindrome_recursive(text)
+    
+    # TODO: Change these to in the function instead of pre-processing
+    text = text.lower()
+    if not text:
+        return True
+    # return is_palindrome_iterative(text)
+    return is_palindrome_recursive(text)
+    # return is_palindrome_one_liner(text)
 
 
 def is_palindrome_iterative(text):
-    # TODO: implement the is_palindrome function iteratively here
-    pass
-    # once implemented, change is_palindrome to call is_palindrome_iterative
-    # to verify that your iterative implementation passes all tests
+    # 11.4 ms ± 141 µs per loop (mean ± std. dev. of 100 runs, 1000 loops each)
+    # initialize indexes of letters in text to compare
+    left = 0
+    right = len(text)-1
+    # Check each letter only once
+    for _ in range(0, (len(text)//2)+1):
+        # ignore everything but letters
+        while text[left] not in LETTERS and left <= right:
+            left += 1
+        while text[right] not in LETTERS and left <= right:
+            right -= 1
+        # not palindromic
+        if text[left] != text[right]:
+            return False
+        # increment and decrement index for next letters to compare
+        left += 1
+        right -= 1
+    # PALINDROMIC!!
+    return True
 
+# DONT DO THIS SHIT ITS STUPID LMAO
+def is_palindrome_one_liner(text):
+    # 11.7 ms ± 1.06 ms per loop (mean ± std. dev. of 100 runs, 1000 loops each)
+    # removes whitespace --> change to all lowercase --> remove all punctuation --> compare to reversed version
+    return ''.join(text.split(' ')).lower().translate(str.maketrans({key: None for key in string.punctuation})) == ''.join(text[::-1].split(' ')).lower().translate(str.maketrans({key: None for key in string.punctuation}))
 
-def is_palindrome_recursive(text, left=None, right=None):
-    # TODO: implement the is_palindrome function recursively here
-    pass
-    # once implemented, change is_palindrome to call is_palindrome_recursive
-    # to verify that your iterative implementation passes all tests
-
+@tail_call_optimized
+def is_palindrome_recursive(text, left=0, right=None):
+    # 11.4 ms ± 318 µs per loop (mean ± std. dev. of 100 runs, 1000 loops each)
+    # initialize right on first run
+    if right is None:
+        right = len(text) - 1
+    # conditional for recursive call
+    if left <= right:
+        # ignore everything but letters
+        while text[left] not in LETTERS:
+            left += 1
+        while text[right] not in LETTERS:
+            right -= 1
+        # not palindromic
+        if text[left] != text[right]:
+            return False
+        # increment and decrement index for next letters to compare
+        left += 1
+        right -= 1
+        # Recursive call
+        return is_palindrome_recursive(text, left, right)
+    # exec(sys._getframe().f_code, {text:text, left:0, rights:len(text)-1})
+    print(sys._getframe().f_code.co_stacksize)
+    # PALINDROMIC!!
+    return True
 
 def main():
     import sys
@@ -43,7 +141,6 @@ def main():
     else:
         print('Usage: {} string1 string2 ... stringN'.format(sys.argv[0]))
         print('  checks if each argument given is a palindrome')
-
 
 if __name__ == '__main__':
     main()

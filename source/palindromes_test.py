@@ -1,7 +1,7 @@
-#!python
+#!python3
 
 from palindromes import is_palindrome
-import unittest
+import unittest, sys
 
 
 class TestPalindromes(unittest.TestCase):
@@ -82,6 +82,17 @@ class TestPalindromes(unittest.TestCase):
         assert is_palindrome('AAAAZAAA') is False
         assert is_palindrome('AAAAAAAZ') is False
 
+    def test_longest(self):
+        try:
+            f = open('/Users/jeremyjames/code/courses/cs13/source/longest_palindrome.txt', 'r')
+            pal = f.readline()
+            f.close()
+            pal = pal.rstrip()
+            assert is_palindrome(pal) is True
+            
+        except FileNotFoundError:
+            pal = "longest"
+            assert is_palindrome(pal) is False
 
 if __name__ == '__main__':
     unittest.main()
