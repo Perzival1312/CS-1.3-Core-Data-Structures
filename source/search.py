@@ -4,7 +4,7 @@ import math, sys
 def linear_search(array, item):
     """return the first index of item in array or None if item is not found"""
     # Just to make debugging eaier
-    sys.setrecursionlimit(75)
+    # sys.setrecursionlimit(75)
     # return linear_search_iterative(array, item)
     return linear_search_recursive(array, item)
 
@@ -19,7 +19,7 @@ def linear_search_recursive(array, item, index=0):
     # check if index to check is even in array
     if index > len(array) - 1:
         return None
-    # check if index is correct for item
+    # check if found
     if item == array[index]:
         return index
     # recursive call
@@ -39,10 +39,10 @@ def binary_search_iterative(array, item):
     # create left and right bounds
     right = len(array) - 1
     left = 0
-    # get index to check
-    index = (right + left) // 2
 
-    while left <= index and index <= right:
+    while left <= right:
+        # adjust index based on new bounds
+        index = (right + left) // 2
         # check if index is correct for item
         if item == array[index]:
             return index
@@ -51,15 +51,13 @@ def binary_search_iterative(array, item):
             right = index - 1 
         else:
             left = index + 1
-        # adjust index based on new bounds
-        index = (right + left) // 2
-    # item not found so return none
+    # item not found 
     return None
 
 def binary_search_recursive(array, item, left=0, right=None):
-    # assign right bound in initial run
+    # assign right bound in initial call
     if right == None:
-        right = len(array)
+        right = len(array) - 1
     # set index based on bounds
     index = (left + right) // 2
     # check if index is correct for item
@@ -67,9 +65,9 @@ def binary_search_recursive(array, item, left=0, right=None):
         return index
     # else find where item is in relation to index and adjust bounds accordingly
     if array[index] > item:
-        right = index
+        right = index - 1
     else:
-        left = index
+        left = index + 1
     # recursive call
     return binary_search_recursive(array, item, left, right)
 

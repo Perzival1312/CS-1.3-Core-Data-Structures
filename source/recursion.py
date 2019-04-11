@@ -13,18 +13,15 @@ def factorial(n):
 
 
 def factorial_iterative(n):
-    # TODO: implement the factorial function iteratively here
+    # edge/base cases to write
     if n == 0 or n == 1:
         return 1
-
+    # initialize variable for the product
     product = 1
+    # multiply each number from 1 to n by product
     for num in range(1, n+1):
         product *= num
-        print(product)
     return product
-    # pass
-    # once implemented, change factorial (above) to call factorial_iterative
-    # to verify that your iterative implementation passes all tests
 
 
 def factorial_recursive(n):
