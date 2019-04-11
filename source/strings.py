@@ -1,10 +1,68 @@
-#!python
+#!python3
 
 def contains(text, pattern):
     """Return a boolean indicating whether pattern occurs in text."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
+    ## ------------BENCHMARKS------------- ##
+    # SET OF COMBINATIONS:
+    # 
+    
+    # ITERATIVE:
+    # 
+    ## ------------------------------------ ##
+    # return contains_iter(text, pattern)
+    return contains_set(text, pattern)
     # TODO: Implement contains here (iteratively and/or recursively)
+    # 
+    # SLOW!!
+    # create a set of all combinations (in-order) of length pattern
+    # if in set
+    # 
+    # FASTER!
+    # linear serch text for first char of pattern in text
+    # then check next letter and so on
+    # until index more than text minus length of pattern
+    # 
+    # .
+
+def contains_set(text, pattern):
+    combinations = set()
+    # create a set of all possible combinations
+    for ind in range(0, len(text)+1):
+        combinations.add(text[ind : ind+len(pattern)])
+
+    if pattern in combinations:
+        return True
+    else:
+        return False
+
+
+def contains_iter(text, pattern, text_ind=0):
+
+    def find_next(text_ind):
+        """return the next index in text of the first char of pattern in text
+        if the pattern is too long to fit in text after that index return False"""
+        while text[text_ind] != pattern[0]:
+            if text_ind < (len(text) - len(pattern)):
+                text_ind += 1
+            # pattern cant fit in text after index
+            else:
+                return False
+        return text_ind
+
+    for ind, letter in enumerate(pattern):
+        temp_ind = text_ind + ind
+        # not equal and not possible for further match based on length
+        if text[temp_ind] != letter and temp_ind > (len(text) - len(pattern)):
+            return False
+        # not match so get next index of mathcing first letter in pattern
+        elif text[temp_ind] != letter:
+            text_ind = find_next(temp_ind)
+            if text_ind == False:
+                return False
+    return True
+    
 
 
 def find_index(text, pattern):
