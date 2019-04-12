@@ -39,31 +39,24 @@ def contains_set(text, pattern):
         return False
 
 
-def find(text, pattern, text_ind=0):#, caller=None, indexes=[]):
+def find(text, pattern, text_ind=0, caller=None):
     """Iterative implementation of the contains function"""
-
-    # if caller == None:
+    # get the name of function that called this function
+    # set vars to reflect edge cases
     if sys._getframe().f_back.f_code.co_name == 'contains':
         empty = True
         dne = False
     elif sys._getframe().f_back.f_code.co_name == 'find_index':
         empty = 0
         dne = None
-        # elif sys._getframe().f_back.f_code.co_name == 'find_all_indexes':
-        #     caller = 1
-        #     indexes = []
-        #     empty = [x for x in range(0, len(text))]
-        #     dne = indexes
-        
+    # base case
     if pattern == '':
         return empty
 
-    # elif caller == 1:
-    #     print(text[text_ind:], pattern)
-
     def find_next(ind):
         """return the next index in text of the first char of pattern in text
-        if the pattern is too long to fit in text after that index return False"""
+        if the pattern is too long to fit in text after that index
+        return an invalid index in text"""
         while text[ind] != pattern[0]:
             # pattern is still possible
             if ind < (len(text) - len(pattern)):
@@ -75,36 +68,24 @@ def find(text, pattern, text_ind=0):#, caller=None, indexes=[]):
 
     pat_ind = 0
     while pat_ind < len(pattern):
+        # make it easier to call specific char in pattern
         letter = pattern[pat_ind]
-
+        # tentatively test next letters in pattern
         temp_ind = text_ind + pat_ind
-
-        # not match so get next index in text of mathcing first letter in pattern
+        # not match so get next index in text of matching first 
+        # letter in pattern and restart the while loop.
         if text[temp_ind] != letter:
             text_ind = find_next(text_ind+1)
             pat_ind = 0
             if text_ind > len(text):
                 return dne
-            # else:
+        # iterate through while loop/pattern
         pat_ind += 1
-    # print('prev:', sys._getframe().f_back.f_code.co_name == 'contains')
-    # print(sys._getframe().f_back.f_code.co_name)
+    # deifferent return values based on calling function
     if sys._getframe().f_back.f_code.co_name == 'contains':
         return True
     elif sys._getframe().f_back.f_code.co_name == 'find_index':
         return text_ind   
-    # else:
-    # elif sys._getframe().f_back.f_code.co_name == 'find_all_indexes' or caller < (len(text)//len(pattern))+1:
-    #     print(sys._getframe().f_back)
-    #     # print(text_ind)
-    #     indexes.append(text_ind)
-    #     if text_ind < (len(text) - len(pattern)):
-    #         # print(text[text_ind:], pattern)
-    #         possible_next = find(text, pattern, text_ind, caller+1, indexes)
-    #         print(possible_next, pattern)
-    #         if isinstance(possible_next, int):
-    #             indexes.append(possible_next)
-    #     return indexes
 
 
 def find_index(text, pattern, start=0):
@@ -112,7 +93,6 @@ def find_index(text, pattern, start=0):
     or None if not found."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    # TODO: Implement find_index here (iteratively and/or recursively)
     return find(text, pattern, start)
 
 
@@ -121,21 +101,18 @@ def find_all_indexes(text, pattern):
     or an empty list if not found."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    # TODO: Implement find_all_indexes here (iteratively and/or recursively)
-    # return find(text, pattern)
-
+    # base case
     if pattern == '':
         return [x for x in range(0, len(text))]
-    
+
     indexes = []
+    # get first possible index
     possible_ind = find_index(text, pattern)
-
-    # if isinstance(possible_ind, int):
-    #     indexes.append(possible_ind)
-
+    # get all next indexes
     while isinstance(possible_ind, int):
         indexes.append(possible_ind)
         if possible_ind < (len(text) - len(pattern)) and (possible_ind+len(pattern)) <= len(text):
+            # TODO: figure out why exactly i get index errors here and not in some other spots
             try:
                 possible_ind = find_index(text, pattern, possible_ind+1)
             except IndexError:
@@ -149,10 +126,8 @@ def find_all_indexes(text, pattern):
 def test_string_algorithms(text, pattern):
     found = contains(text, pattern)
     print('contains({!r}, {!r}) => {}'.format(text, pattern, found))
-    # TODO: Uncomment these lines after you implement find_index
     index = find_index(text, pattern)
     print('find_index({!r}, {!r}) => {}'.format(text, pattern, index))
-    # TODO: Uncomment these lines after you implement find_all_indexes
     indexes = find_all_indexes(text, pattern)
     print('find_all_indexes({!r}, {!r}) => {}'.format(text, pattern, indexes))
 
