@@ -125,7 +125,7 @@ def is_palindrome_recursive(text, left=0, right=None):
         # Recursive call
         return is_palindrome_recursive(text, left, right)
     # exec(sys._getframe().f_code, {text:text, left:0, rights:len(text)-1})
-    print(sys._getframe().f_code.co_stacksize)
+    # print(sys._getframe().f_code.co_stacksize)
     # PALINDROMIC!!
     return True
 
