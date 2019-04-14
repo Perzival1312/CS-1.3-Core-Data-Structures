@@ -9,7 +9,16 @@ def contains(text, pattern):
     # default values
     empty = True
     dne = False
-    return isinstance(find(text, pattern, dne, empty), int)
+
+    result = find(text, pattern, dne, empty)
+    # fix for True == 1 and False == 0
+    if isinstance(result, bool):
+        return result
+    elif isinstance(result, (float, int)):
+        return True
+    else:    
+        return False
+    
 
 def find(text, pattern, dne, empty, text_ind=0):
     """Iterative implementation of the contains function"""
