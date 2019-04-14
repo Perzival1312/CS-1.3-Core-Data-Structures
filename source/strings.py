@@ -6,49 +6,13 @@ def contains(text, pattern):
     """Return a boolean indicating whether pattern occurs in text."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    ## ------------BENCHMARKS------------- ##
-    # SET OF COMBINATIONS:
-    # 
-    
-    # ITERATIVE:
-    # 
-    ## ------------------------------------ ##
-    return find(text, pattern)
-    # return contains_set(text, pattern)
-    # 
-    # SLOW!!
-    # create a set of all combinations (in-order) of length pattern
-    # if in set
-    # 
-    # FASTER!
-    # linear serch text for first char of pattern in text
-    # then check next letter and so on
-    # until index more than text minus length of pattern
-    # 
-    # .
+    # default values
+    empty = True
+    dne = False
+    return isinstance(find(text, pattern, dne, empty), int)
 
-def contains_set(text, pattern):
-    combinations = set()
-    # create a set of all possible combinations
-    for ind in range(0, len(text)+1):
-        combinations.add(text[ind : ind+len(pattern)])
-
-    if pattern in combinations:
-        return True
-    else:
-        return False
-
-
-def find(text, pattern, text_ind=0, caller=None):
+def find(text, pattern, dne, empty, text_ind=0):
     """Iterative implementation of the contains function"""
-    # get the name of function that called this function
-    # set vars to reflect edge cases
-    if sys._getframe().f_back.f_code.co_name == 'contains':
-        empty = True
-        dne = False
-    elif sys._getframe().f_back.f_code.co_name == 'find_index':
-        empty = 0
-        dne = None
     # base case
     if pattern == '':
         return empty
@@ -81,11 +45,8 @@ def find(text, pattern, text_ind=0, caller=None):
                 return dne
         # iterate through while loop/pattern
         pat_ind += 1
-    # deifferent return values based on calling function
-    if sys._getframe().f_back.f_code.co_name == 'contains':
-        return True
-    elif sys._getframe().f_back.f_code.co_name == 'find_index':
-        return text_ind   
+
+    return text_ind   
 
 
 def find_index(text, pattern, start=0):
@@ -93,7 +54,10 @@ def find_index(text, pattern, start=0):
     or None if not found."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    return find(text, pattern, start)
+    # default values
+    dne = None
+    empty = 0
+    return find(text, pattern, dne, empty, start)
 
 
 def find_all_indexes(text, pattern):
