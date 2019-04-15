@@ -1,4 +1,4 @@
-#!python
+#!python3
 
 class Node(object):
 
@@ -85,15 +85,19 @@ class LinkedList(object):
         if not (0 <= index <= self.size):
             raise ValueError('List index out of range: {}'.format(index))
         # TODO: Find the node before the given index and insert item after it
+        # at beginning
         if index == 0:
             self.prepend(item)
+        # at end
         elif index == self.size:
             self.append(item)
+        # in middle
         else:
+            prev = self[index-1]
             new_node = Node(item)
-            next_node = self[index]
+            next_node = prev.next
             new_node.next = next_node
-            self[index-1].next = new_node
+            prev.next = new_node
             self.size += 1
 
     def append(self, item):
