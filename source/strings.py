@@ -2,26 +2,15 @@
 
 import sys
 
-def contains(text, pattern):
-    """Return a boolean indicating whether pattern occurs in text."""
-    assert isinstance(text, str), 'text is not a string: {}'.format(text)
-    assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    # default values
-    empty = True
-    dne = False
-
-    result = find(text, pattern, dne, empty)
-    # fix for True == 1 and False == 0
-    if isinstance(result, bool):
-        return result
-    elif isinstance(result, (float, int)):
-        return True
-    else:    
-        return False
-    
-
 def find(text, pattern, dne, empty, text_ind=0):
-    """Iterative implementation of the contains function"""
+    """Finds the first occurance of 'pattern' in 'text' after 'text_ind'\n
+    'text' - String that is being searched\n
+    'pattern' - String that is being searched for\n
+    'dne' - value to return if 'pattern' is not found in 'text'\n
+    'empty' - value to return if 'pattern' is an empty string\n
+    'text_ind' - Integer index of text to start searching from"""
+
+    assert isinstance(text_ind, int), 'text_ind is not an int: {}'.format(text_ind)
     # base case
     if pattern == '':
         return empty
@@ -54,8 +43,25 @@ def find(text, pattern, dne, empty, text_ind=0):
                 return dne
         # iterate through while loop/pattern
         pat_ind += 1
-
     return text_ind   
+
+
+def contains(text, pattern):
+    """Return a boolean indicating whether pattern occurs in text."""
+    assert isinstance(text, str), 'text is not a string: {}'.format(text)
+    assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
+    # default values
+    empty = True
+    dne = False
+
+    result = find(text, pattern, dne, empty)
+    # fix for True == 1 and False == 0
+    if isinstance(result, bool):
+        return result
+    elif isinstance(result, (float, int)):
+        return True
+    else:    
+        return False
 
 
 def find_index(text, pattern, start=0):
