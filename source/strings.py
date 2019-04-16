@@ -103,6 +103,7 @@ def find_all_indexes(text, pattern):
 
 
 def test_string_algorithms(text, pattern):
+    # all O(n*m) where n is len(text) and m is len(pattern)
     found = contains(text, pattern)
     print('contains({!r}, {!r}) => {}'.format(text, pattern, found))
     index = find_index(text, pattern)
