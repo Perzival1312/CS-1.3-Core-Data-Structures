@@ -2,7 +2,6 @@
 
 
 class BinaryTreeNode(object):
-
     def __init__(self, data):
         """Initialize this binary tree node with the given data."""
         self.data = data
@@ -11,7 +10,7 @@ class BinaryTreeNode(object):
 
     def __repr__(self):
         """Return a string representation of this binary tree node."""
-        return 'BinaryTreeNode({!r})'.format(self.data)
+        return "BinaryTreeNode({!r})".format(self.data)
 
     def is_leaf(self):
         """Return True if this node is a leaf (has no children)."""
@@ -36,7 +35,6 @@ class BinaryTreeNode(object):
 
 
 class BinarySearchTree(object):
-
     def __init__(self, items=None):
         """Initialize this binary search tree and insert the given items."""
         self.root = None
@@ -47,7 +45,7 @@ class BinarySearchTree(object):
 
     def __repr__(self):
         """Return a string representation of this binary search tree."""
-        return 'BinarySearchTree({} nodes)'.format(self.size)
+        return "BinarySearchTree({} nodes)".format(self.size)
 
     def is_empty(self):
         """Return True if this binary search tree is empty (has no nodes)."""
@@ -88,7 +86,7 @@ class BinarySearchTree(object):
             # TODO: Create a new root node
             self.root = ...
             # TODO: Increase the tree size
-            self.size ...
+            self.size
             return
         # Find the parent node of where the given item should be inserted
         parent = self._find_parent_node_recursive(item, self.root)
@@ -101,7 +99,7 @@ class BinarySearchTree(object):
             # TODO: Create a new node and set the parent's right child
             parent.right = ...
         # TODO: Increase the tree size
-        self.size ...
+        self.size
 
     def _find_node_iterative(self, item):
         """Return the node containing the given item in this binary search tree,
@@ -330,32 +328,32 @@ def test_binary_search_tree():
     # items = [2, 1, 3]
     items = [4, 2, 6, 1, 3, 5, 7]
     # items = [8, 4, 12, 2, 6, 10, 14, 1, 3, 5, 7, 9, 11, 13, 15]
-    print('items: {}'.format(items))
+    print("items: {}".format(items))
 
     tree = BinarySearchTree()
-    print('tree: {}'.format(tree))
-    print('root: {}'.format(tree.root))
+    print("tree: {}".format(tree))
+    print("root: {}".format(tree.root))
 
-    print('\nInserting items:')
+    print("\nInserting items:")
     for item in items:
         tree.insert(item)
-        print('insert({}), size: {}'.format(item, tree.size))
-    print('root: {}'.format(tree.root))
+        print("insert({}), size: {}".format(item, tree.size))
+    print("root: {}".format(tree.root))
 
-    print('\nSearching for items:')
+    print("\nSearching for items:")
     for item in items:
         result = tree.search(item)
-        print('search({}): {}'.format(item, result))
+        print("search({}): {}".format(item, result))
     item = 123
     result = tree.search(item)
-    print('search({}): {}'.format(item, result))
+    print("search({}): {}".format(item, result))
 
-    print('\nTraversing items:')
-    print('items in-order:    {}'.format(tree.items_in_order()))
-    print('items pre-order:   {}'.format(tree.items_pre_order()))
-    print('items post-order:  {}'.format(tree.items_post_order()))
-    print('items level-order: {}'.format(tree.items_level_order()))
+    print("\nTraversing items:")
+    print("items in-order:    {}".format(tree.items_in_order()))
+    print("items pre-order:   {}".format(tree.items_pre_order()))
+    print("items post-order:  {}".format(tree.items_post_order()))
+    print("items level-order: {}".format(tree.items_level_order()))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test_binary_search_tree()
