@@ -104,7 +104,7 @@ class Deque(object):
         self.list = LinkedList()
         if iterable is not None:
             for item in iterable:
-                self.push_front(item)
+                self.push_back(item)
 
     def __repr__(self):
         """Return a string representation of this queue."""
