@@ -1,6 +1,7 @@
 #!python
 import math, sys
 
+
 def linear_search(array, item):
     """return the first index of item in array or None if item is not found"""
     # Just to make debugging eaier
@@ -8,12 +9,14 @@ def linear_search(array, item):
     # return linear_search_iterative(array, item)
     return linear_search_recursive(array, item)
 
+
 def linear_search_iterative(array, item):
     # loop over all array values until item is found
     for index, value in enumerate(array):
         if item == value:
             return index  # found
     return None  # not found
+
 
 def linear_search_recursive(array, item, index=0):
     # check if index to check is even in array
@@ -23,7 +26,7 @@ def linear_search_recursive(array, item, index=0):
     if item == array[index]:
         return index
     # recursive call
-    return linear_search_recursive(array, item, index+1)
+    return linear_search_recursive(array, item, index + 1)
 
 
 def binary_search(array, item):
@@ -34,6 +37,7 @@ def binary_search(array, item):
     sys.setrecursionlimit(75)
     return binary_search_iterative(array, item)
     # return binary_search_recursive(array, item)
+
 
 def binary_search_iterative(array, item):
     # create left and right bounds
@@ -48,11 +52,12 @@ def binary_search_iterative(array, item):
             return index
         # else find where item is in relation to index and adjust bounds accordingly
         if array[index] > item:
-            right = index - 1 
+            right = index - 1
         else:
             left = index + 1
-    # item not found 
+    # item not found
     return None
+
 
 def binary_search_recursive(array, item, left=0, right=None):
     # assign right bound in initial call
@@ -71,14 +76,16 @@ def binary_search_recursive(array, item, left=0, right=None):
     # recursive call
     return binary_search_recursive(array, item, left, right)
 
+
 # callable from command liine
 def main():
-    names = ['Alex', 'Brian', 'Julia', 'Kojin', 'Nabil', 'Nick', 'Winnie']
-    contain = 'Julia'
-    not_contain = 'Jeremy'
+    names = ["Alex", "Brian", "Julia", "Kojin", "Nabil", "Nick", "Winnie"]
+    contain = "Julia"
+    not_contain = "Jeremy"
 
     print(binary_search(names, contain))
     print(binary_search(names, not_contain))
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

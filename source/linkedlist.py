@@ -1,7 +1,7 @@
 #!python3
 
-class Node(object):
 
+class Node(object):
     def __init__(self, data):
         """Initialize this node with the given data."""
         self.data = data
@@ -9,11 +9,10 @@ class Node(object):
 
     def __repr__(self):
         """Return a string representation of this node."""
-        return 'Node({!r})'.format(self.data)
+        return "Node({!r})".format(self.data)
 
 
 class LinkedList(object):
-
     def __init__(self, iterable=None):
         """Initialize this linked list and append the given items, if any."""
         self.head = None  # First node
@@ -26,13 +25,13 @@ class LinkedList(object):
 
     def __str__(self):
         """Return a formatted string representation of this linked list."""
-        items = ['({!r})'.format(item) for item in self.items()]
-        return '[{}]'.format(' -> '.join(items))
+        items = ["({!r})".format(item) for item in self.items()]
+        return "[{}]".format(" -> ".join(items))
 
     def __repr__(self):
         """Return a string representation of this linked list."""
-        return 'LinkedList({!r})'.format(self.items())
-    
+        return "LinkedList({!r})".format(self.items())
+
     def __getitem__(self, ind):
         node = self.head
         for _ in range(ind):
@@ -72,7 +71,7 @@ class LinkedList(object):
         Worst case running time: O(n) item is tail"""
         # Check if the given index is out of range and if so raise an error
         if not (0 <= index < self.size):
-            raise ValueError('List index out of range: {}'.format(index))
+            raise ValueError("List index out of range: {}".format(index))
         return self[index].data
 
     def insert_at_index(self, index, item):
@@ -82,7 +81,7 @@ class LinkedList(object):
         Worst case running time: O(1) just changing var values"""
         # Check if the given index is out of range and if so raise an error
         if not (0 <= index <= self.size):
-            raise ValueError('List index out of range: {}'.format(index))
+            raise ValueError("List index out of range: {}".format(index))
         # at beginning
         if index == 0:
             self.prepend(item)
@@ -91,7 +90,7 @@ class LinkedList(object):
             self.append(item)
         # in middle
         else:
-            prev = self[index-1]
+            prev = self[index - 1]
             new_node = Node(item)
             next_node = prev.next
             new_node.next = next_node
@@ -153,7 +152,7 @@ class LinkedList(object):
         using the same node, or raise ValueError if old_item is not found.
         Best case running time: O(1) just changing var values
         Worst case running time: O(1) just changing var values"""
- 
+
         node = self.head
         while node is not None:
             if node.data == old_item:
@@ -161,7 +160,7 @@ class LinkedList(object):
                 break
             node = node.next
         else:
-            raise ValueError('Item not found: {}'.format(old_item))
+            raise ValueError("Item not found: {}".format(old_item))
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
@@ -208,42 +207,42 @@ class LinkedList(object):
             self.size -= 1
         else:
             # Otherwise raise an error to tell the user that delete has failed
-            raise ValueError('Item not found: {}'.format(item))
+            raise ValueError("Item not found: {}".format(item))
 
 
 def test_linked_list():
     ll = LinkedList()
     print(ll)
 
-    print('Appending items:')
-    ll.append('A')
+    print("Appending items:")
+    ll.append("A")
     print(ll)
-    ll.append('B')
+    ll.append("B")
     print(ll)
-    ll.append('C')
+    ll.append("C")
     print(ll)
-    print('head: {}'.format(ll.head))
-    print('tail: {}'.format(ll.tail))
-    print('size: {}'.format(ll.size))
-    print('length: {}'.format(ll.length()))
+    print("head: {}".format(ll.head))
+    print("tail: {}".format(ll.tail))
+    print("size: {}".format(ll.size))
+    print("length: {}".format(ll.length()))
 
-    print('Getting items by index:')
+    print("Getting items by index:")
     for index in range(ll.size):
         item = ll.get_at_index(index)
-        print('get_at_index({}): {!r}'.format(index, item))
+        print("get_at_index({}): {!r}".format(index, item))
 
-    print('Deleting items:')
-    ll.delete('B')
+    print("Deleting items:")
+    ll.delete("B")
     print(ll)
-    ll.delete('C')
+    ll.delete("C")
     print(ll)
-    ll.delete('A')
+    ll.delete("A")
     print(ll)
-    print('head: {}'.format(ll.head))
-    print('tail: {}'.format(ll.tail))
-    print('size: {}'.format(ll.size))
-    print('length: {}'.format(ll.length()))
+    print("head: {}".format(ll.head))
+    print("tail: {}".format(ll.tail))
+    print("size: {}".format(ll.size))
+    print("length: {}".format(ll.length()))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test_linked_list()

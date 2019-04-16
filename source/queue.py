@@ -6,7 +6,6 @@ from linkedlist import LinkedList
 # Implement LinkedQueue below, then change the assignment at the bottom
 # to use this Queue implementation to verify it passes all tests
 class LinkedQueue(object):
-
     def __init__(self, iterable=None):
         """Initialize this queue and enqueue the given items, if any."""
         # Initialize a new linked list to store the items
@@ -17,7 +16,7 @@ class LinkedQueue(object):
 
     def __repr__(self):
         """Return a string representation of this queue."""
-        return 'Queue({} items, front={})'.format(self.length(), self.front())
+        return "Queue({} items, front={})".format(self.length(), self.front())
 
     def is_empty(self):
         """Return True if this queue is empty, or False otherwise."""
@@ -47,13 +46,12 @@ class LinkedQueue(object):
             to_remove = self.list.head.data
             self.list.delete(to_remove)
             return to_remove
-        raise ValueError('Queue is empty')
+        raise ValueError("Queue is empty")
 
 
 # Implement ArrayQueue below, then change the assignment at the bottom
 # to use this Queue implementation to verify it passes all tests
 class ArrayQueue(object):
-
     def __init__(self, iterable=None):
         """Initialize this queue and enqueue the given items, if any."""
         # Initialize a new list (dynamic array) to store the items
@@ -64,7 +62,7 @@ class ArrayQueue(object):
 
     def __repr__(self):
         """Return a string representation of this queue."""
-        return 'Queue({} items, front={})'.format(self.length(), self.front())
+        return "Queue({} items, front={})".format(self.length(), self.front())
 
     def is_empty(self):
         """Return True if this queue is empty, or False otherwise."""
@@ -95,7 +93,8 @@ class ArrayQueue(object):
             to_remove = self.list[0]
             self.list.remove(to_remove)
             return to_remove
-        raise ValueError('Queue is empty')
+        raise ValueError("Queue is empty")
+
 
 class Deque(object):
     def __init__(self, iterable=None):
@@ -108,7 +107,7 @@ class Deque(object):
 
     def __repr__(self):
         """Return a string representation of this queue."""
-        return 'Queue({} items, front={})'.format(self.length(), self.front())
+        return "Queue({} items, front={})".format(self.length(), self.front())
 
     def is_empty(self):
         """Return True if this queue is empty, or False otherwise."""
@@ -122,12 +121,12 @@ class Deque(object):
         """add item to the front of the queue
         O(1) – only reassign vars"""
         self.list.prepend(item)
-    
+
     def push_back(self, item):
         """add item to the end of the queue
         O(1) – only reassign vars"""
         self.list.append(item)
-    
+
     def pop_front(self):
         """remove item from the front of the queue and return that value or
         raise a value error if the queue is empty
@@ -136,8 +135,8 @@ class Deque(object):
             to_remove = self.list.head.data
             self.list.delete(to_remove)
             return to_remove
-        raise ValueError('Queue is empty')
-    
+        raise ValueError("Queue is empty")
+
     def pop_back(self):
         """remove item from the back of the queue and return that value or
         raise a value error if the queue is empty
@@ -146,7 +145,7 @@ class Deque(object):
             to_remove = self.list.tail.data
             self.list.delete(to_remove)
             return to_remove
-        raise ValueError('Queue is empty')
+        raise ValueError("Queue is empty")
 
     def front(self):
         """Return the item at the front of this queue without removing it,
@@ -161,6 +160,7 @@ class Deque(object):
         if self.is_empty():
             return None
         return self.list.tail.data
+
 
 # Implement LinkedQueue and ArrayQueue above, then change the assignment below
 # to use each of your Queue implementations to verify they each pass all tests

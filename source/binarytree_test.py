@@ -5,7 +5,6 @@ import unittest
 
 
 class BinaryTreeNodeTest(unittest.TestCase):
-
     def test_init(self):
         data = 123
         node = BinaryTreeNode(data)
@@ -69,7 +68,6 @@ class BinaryTreeNodeTest(unittest.TestCase):
 
 
 class BinarySearchTreeTest(unittest.TestCase):
-
     def test_init(self):
         tree = BinarySearchTree()
         assert tree.root is None
@@ -85,29 +83,29 @@ class BinarySearchTreeTest(unittest.TestCase):
         assert tree.is_empty() is False
 
     def test_init_with_list_of_strings(self):
-        tree = BinarySearchTree(['B', 'A', 'C'])
-        assert tree.root.data == 'B'
-        assert tree.root.left.data == 'A'
-        assert tree.root.right.data == 'C'
+        tree = BinarySearchTree(["B", "A", "C"])
+        assert tree.root.data == "B"
+        assert tree.root.left.data == "A"
+        assert tree.root.right.data == "C"
         assert tree.size == 3
         assert tree.is_empty() is False
 
     def test_init_with_list_of_tuples(self):
-        tree = BinarySearchTree([(2, 'B'), (1, 'A'), (3, 'C')])
-        assert tree.root.data == (2, 'B')
-        assert tree.root.left.data == (1, 'A')
-        assert tree.root.right.data == (3, 'C')
+        tree = BinarySearchTree([(2, "B"), (1, "A"), (3, "C")])
+        assert tree.root.data == (2, "B")
+        assert tree.root.left.data == (1, "A")
+        assert tree.root.right.data == (3, "C")
         assert tree.size == 3
         assert tree.is_empty() is False
 
     def test_size(self):
         tree = BinarySearchTree()
         assert tree.size == 0
-        tree.insert('B')
+        tree.insert("B")
         assert tree.size == 1
-        tree.insert('A')
+        tree.insert("A")
         assert tree.size == 2
-        tree.insert('C')
+        tree.insert("C")
         assert tree.size == 3
 
     def test_search_with_3_items(self):
@@ -129,20 +127,20 @@ class BinarySearchTreeTest(unittest.TestCase):
 
     def test_search_with_3_strings(self):
         # Create a complete binary search tree of 3 items in level-order
-        items = ['B', 'A', 'C']
+        items = ["B", "A", "C"]
         tree = BinarySearchTree(items)
-        assert tree.search('A') == 'A'
-        assert tree.search('B') == 'B'
-        assert tree.search('C') == 'C'
-        assert tree.search('D') is None
+        assert tree.search("A") == "A"
+        assert tree.search("B") == "B"
+        assert tree.search("C") == "C"
+        assert tree.search("D") is None
 
     def test_search_with_7_strings(self):
         # Create a complete binary search tree of 7 items in level-order
-        items = ['D', 'B', 'F', 'A', 'C', 'E', 'G']
+        items = ["D", "B", "F", "A", "C", "E", "G"]
         tree = BinarySearchTree(items)
         for item in items:
             assert tree.search(item) == item
-        assert tree.search('H') is None
+        assert tree.search("H") is None
 
     def test_insert_with_3_items(self):
         # Create a complete binary search tree of 3 items in level-order
@@ -221,31 +219,31 @@ class BinarySearchTreeTest(unittest.TestCase):
 
     def test_items_in_order_with_3_strings(self):
         # Create a complete binary search tree of 3 strings in level-order
-        items = ['B', 'A', 'C']
+        items = ["B", "A", "C"]
         tree = BinarySearchTree(items)
         # Ensure the in-order traversal of tree items is ordered correctly
-        assert tree.items_in_order() == ['A', 'B', 'C']
+        assert tree.items_in_order() == ["A", "B", "C"]
 
     def test_items_pre_order_with_3_strings(self):
         # Create a complete binary search tree of 3 strings in level-order
-        items = ['B', 'A', 'C']
+        items = ["B", "A", "C"]
         tree = BinarySearchTree(items)
         # Ensure the pre-order traversal of tree items is ordered correctly
-        assert tree.items_pre_order() == ['B', 'A', 'C']
+        assert tree.items_pre_order() == ["B", "A", "C"]
 
     def test_items_post_order_with_3_strings(self):
         # Create a complete binary search tree of 3 strings in level-order
-        items = ['B', 'A', 'C']
+        items = ["B", "A", "C"]
         tree = BinarySearchTree(items)
         # Ensure the post-order traversal of tree items is ordered correctly
-        assert tree.items_post_order() == ['A', 'C', 'B']
+        assert tree.items_post_order() == ["A", "C", "B"]
 
     def test_items_level_order_with_3_strings(self):
         # Create a complete binary search tree of 3 strings in level-order
-        items = ['B', 'A', 'C']
+        items = ["B", "A", "C"]
         tree = BinarySearchTree(items)
         # Ensure the level-order traversal of tree items is ordered correctly
-        assert tree.items_level_order() == ['B', 'A', 'C']
+        assert tree.items_level_order() == ["B", "A", "C"]
 
     def test_items_in_order_with_7_numbers(self):
         # Create a complete binary search tree of 7 items in level-order
@@ -276,5 +274,5 @@ class BinarySearchTreeTest(unittest.TestCase):
         assert tree.items_level_order() == [4, 2, 6, 1, 3, 5, 7]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -2,16 +2,17 @@ class Node(object):
     def __init__(self, data):
         """Initialize this node with the given data."""
         self.data = data
-        self.next = None # an OBJECT
-        self.prev = None # an OBJECT
+        self.next = None  # an OBJECT
+        self.prev = None  # an OBJECT
 
     def __repr__(self):
         """Return a string representation of this node."""
-        return 'Node({!r})'.format(self.data)
+        return "Node({!r})".format(self.data)
+
 
 class LListIter(object):
     def __init__(self, item):
-        self.item = item    
+        self.item = item
 
     def __next__(self):
         node = self.item
@@ -19,7 +20,8 @@ class LListIter(object):
             raise StopIteration
         self.item = self.item.next
         return node
-            
+
+
 class DblLinkedList(object):
     def __init__(self, items=None):
         """Initialize this linked list and append the given items, if any."""
@@ -33,22 +35,22 @@ class DblLinkedList(object):
 
     def __str__(self):
         """Return a formatted string representation of this linked list."""
-        items = ['({!r})'.format(item) for item in self.items()]
-        return '[{}]'.format(' <-> '.join(items))
+        items = ["({!r})".format(item) for item in self.items()]
+        return "[{}]".format(" <-> ".join(items))
 
     def __repr__(self):
         """Return a string representation of this linked list."""
-        return 'LinkedList({!r})'.format(self.items())
-    
+        return "LinkedList({!r})".format(self.items())
+
     def __iter__(self):
         return LListIter(self.head)
 
     def __len__(self):
-        return self.size+1
-    
+        return self.size + 1
+
     def __getitem__(self, ind):
         node = self.head
-        for _ in range(ind-1):
+        for _ in range(ind - 1):
             node = node.next
         return node
 
@@ -77,7 +79,6 @@ class DblLinkedList(object):
         Running time: O(n) Why and under what conditions?
                 searching through all nodes"""
         return self.size
-
 
     def append(self, item):
         """Insert the given item at the tail of this linked list.
@@ -112,19 +113,20 @@ class DblLinkedList(object):
         self.head = new_node
         self.size += 1
 
-
     def find(self, quality):
         """Return an item from this linked list satisfying the given quality.
         Best case running time: O(1) Why and under what conditions?
                 quality is head only chacking once
         Worst case running time: O(n) Why and under what conditions?
                 quality is tail checking entire list                     """
-        node = self.head # gets first element in linked list
-        while node is not None: # checks to see if it is a node
-            if quality(node.data): # runs quality func which chacks if node data is equal to func input
-                return node.data # if true returning nodes data
-            node = node.next # next node
-        return None # default if not found
+        node = self.head  # gets first element in linked list
+        while node is not None:  # checks to see if it is a node
+            if quality(
+                node.data
+            ):  # runs quality func which chacks if node data is equal to func input
+                return node.data  # if true returning nodes data
+            node = node.next  # next node
+        return None  # default if not found
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
@@ -164,8 +166,8 @@ class DblLinkedList(object):
             prev_node = node
             node = node.next
         else:
-            raise ValueError('Item not found: {}'.format(item))
-    
+            raise ValueError("Item not found: {}".format(item))
+
     def replace(self, old, new):
         node = self.head
         while node is not None:
@@ -174,48 +176,48 @@ class DblLinkedList(object):
                 break
             node = node.next
         else:
-            raise ValueError('Item not found: {}'.format(old))
+            raise ValueError("Item not found: {}".format(old))
 
 
 def test_linked_list():
-    ll = DblLinkedList(['A', 'B', 'C'])
-    print('list: {}'.format(ll))
+    ll = DblLinkedList(["A", "B", "C"])
+    print("list: {}".format(ll))
 
-    print('\nTesting append:')
-    for item in ['D', 'E', 'F']:
-        print('append({!r})'.format(item))
+    print("\nTesting append:")
+    for item in ["D", "E", "F"]:
+        print("append({!r})".format(item))
         ll.append(item)
-        print('list: {}'.format(ll))
+        print("list: {}".format(ll))
 
-    print('head: {}'.format(ll.head))
-    print('tail: {}'.format(ll.tail))
-    print('length: {}'.format(ll.length()))
+    print("head: {}".format(ll.head))
+    print("tail: {}".format(ll.tail))
+    print("length: {}".format(ll.length()))
 
     # Enable this after implementing delete method
     delete_implemented = False
     if delete_implemented:
-        print('\nTesting delete:')
-        for item in ['B', 'C', 'A']:
-            print('delete({!r})'.format(item))
+        print("\nTesting delete:")
+        for item in ["B", "C", "A"]:
+            print("delete({!r})".format(item))
             ll.delete(item)
-            print('list: {}'.format(ll))
+            print("list: {}".format(ll))
 
-        print('head: {}'.format(ll.head))
-        print('tail: {}'.format(ll.tail))
-        print('length: {}'.format(ll.length()))
+        print("head: {}".format(ll.head))
+        print("tail: {}".format(ll.tail))
+        print("length: {}".format(ll.length()))
 
-    ll.replace('D', 'G')
+    ll.replace("D", "G")
     print(ll)
     # for items in ll:
     # #     for item in ll:
     #     print(items)
     for items in reversed(ll):
-    #     for item in ll:
+        #     for item in ll:
         print(items)
     # print(ll[6])
-        # print(item)
+    # print(item)
     # print(ll)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test_linked_list()
