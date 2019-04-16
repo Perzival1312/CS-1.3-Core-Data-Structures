@@ -97,7 +97,69 @@ class ArrayQueue(object):
             return to_remove
         raise ValueError('Queue is empty')
 
+class Deque(object):
+    def __init__(self, iterable=None):
+        """Initialize this queue and enqueue the given items, if any."""
+        # Initialize a new linked list to store the items
+        self.list = LinkedList()
+        if iterable is not None:
+            for item in iterable:
+                self.push_front(item)
+
+    def __repr__(self):
+        """Return a string representation of this queue."""
+        return 'Queue({} items, front={})'.format(self.length(), self.front())
+
+    def is_empty(self):
+        """Return True if this queue is empty, or False otherwise."""
+        return self.list.is_empty()
+
+    def length(self):
+        """Return the number of items in this queue."""
+        return self.list.size
+
+    def push_front(self, item):
+        """add item to the front of the queue"""
+        self.list.prepend(item)
+    
+    def push_back(self, item):
+        """add item to the end of the queue"""
+        self.list.append(item)
+    
+    def pop_front(self):
+        """remove item from the front of the queue and return that value or
+        raise a value error if the queue is empty"""
+        if not self.is_empty():
+            to_remove = self.list.head.data
+            self.list.delete(to_remove)
+            return to_remove
+        raise ValueError('Queue is empty')
+    
+    def pop_back(self):
+        """remove item from the back of the queue and return that value or
+        raise a value error if the queue is empty"""
+        if not self.is_empty():
+            to_remove = self.list.tail.data
+            self.list.delete(to_remove)
+            return to_remove
+        raise ValueError('Queue is empty')
+
+    def front(self):
+        """Return the item at the front of this queue without removing it,
+        or None if this queue is empty."""
+        if self.is_empty():
+            return None
+        return self.list.head.data
+
+    def back(self):
+        """Return the item at the back of this queue without removing it,
+        or None if this queue is empty."""
+        if self.is_empty():
+            return None
+        return self.list.tail.data
+
 # Implement LinkedQueue and ArrayQueue above, then change the assignment below
 # to use each of your Queue implementations to verify they each pass all tests
 # Queue = LinkedQueue
 Queue = ArrayQueue
+Dequeue = Deque
