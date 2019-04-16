@@ -42,7 +42,7 @@ class LinkedQueue(object):
     def dequeue(self):
         """Remove and return the item at the front of this queue,
         or raise ValueError if this queue is empty.
-        Running time: O(1) – reassign head var [TODO]"""
+        Running time: O(1) – reassign head var"""
         if not self.is_empty():
             to_remove = self.list.head.data
             self.list.delete(to_remove)
@@ -76,7 +76,7 @@ class ArrayQueue(object):
 
     def enqueue(self, item):
         """Insert the given item at the back of this queue.
-        Running time: O(1) – Why? [TODO]"""
+        Running time: O(1) – just adding to dynamic array"""
         self.list.append(item)
 
     def front(self):
@@ -89,7 +89,7 @@ class ArrayQueue(object):
     def dequeue(self):
         """Remove and return the item at the front of this queue,
         or raise ValueError if this queue is empty.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(1) – just remove first item"""
         # TODO: Remove and return front item, if any
         if not self.is_empty():
             to_remove = self.list[0]
@@ -119,16 +119,19 @@ class Deque(object):
         return self.list.size
 
     def push_front(self, item):
-        """add item to the front of the queue"""
+        """add item to the front of the queue
+        O(1) – only reassign vars"""
         self.list.prepend(item)
     
     def push_back(self, item):
-        """add item to the end of the queue"""
+        """add item to the end of the queue
+        O(1) – only reassign vars"""
         self.list.append(item)
     
     def pop_front(self):
         """remove item from the front of the queue and return that value or
-        raise a value error if the queue is empty"""
+        raise a value error if the queue is empty
+        O(1) – only reassign vars"""
         if not self.is_empty():
             to_remove = self.list.head.data
             self.list.delete(to_remove)
@@ -137,7 +140,8 @@ class Deque(object):
     
     def pop_back(self):
         """remove item from the back of the queue and return that value or
-        raise a value error if the queue is empty"""
+        raise a value error if the queue is empty
+        O(1) – only reassign vars"""
         if not self.is_empty():
             to_remove = self.list.tail.data
             self.list.delete(to_remove)
@@ -162,4 +166,3 @@ class Deque(object):
 # to use each of your Queue implementations to verify they each pass all tests
 # Queue = LinkedQueue
 Queue = ArrayQueue
-Dequeue = Deque
