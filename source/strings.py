@@ -2,7 +2,7 @@
 
 import sys
 
-def find(text, pattern, dne, empty, text_ind=0):
+def _find(text, pattern, dne, empty, text_ind=0):
     """Finds the first occurance of 'pattern' in 'text' after 'text_ind'\n
     'text' - String that is being searched\n
     'pattern' - String that is being searched for\n
@@ -43,7 +43,7 @@ def find(text, pattern, dne, empty, text_ind=0):
                 return dne
         # iterate through while loop/pattern
         pat_ind += 1
-    return text_ind   
+    return text_ind
 
 
 def contains(text, pattern):
@@ -54,13 +54,13 @@ def contains(text, pattern):
     empty = True
     dne = False
 
-    result = find(text, pattern, dne, empty)
+    result = _find(text, pattern, dne, empty)
     # fix for True == 1 and False == 0
     if isinstance(result, bool):
         return result
     elif isinstance(result, (float, int)):
         return True
-    else:    
+    else:
         return False
 
 
@@ -72,7 +72,7 @@ def find_index(text, pattern, start=0):
     # default values
     dne = None
     empty = 0
-    return find(text, pattern, dne, empty, start)
+    return _find(text, pattern, dne, empty, start)
 
 
 def find_all_indexes(text, pattern):
