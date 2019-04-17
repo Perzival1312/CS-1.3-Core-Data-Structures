@@ -25,7 +25,7 @@ class HashTable(object):
     def load_factor(self):
         """Return the load factor, the ratio of number of entries to buckets.
         Best and worst case running time: O(1) just dividing 2 constants"""
-        return self.size/len(self.buckets)
+        return self.size / len(self.buckets)
 
     def keys(self):
         """Return a list of all keys in this hash table.
@@ -122,7 +122,6 @@ class HashTable(object):
         if self.load_factor() > 0.75:
             self._resize()
 
-
     def delete(self, key):
         """Delete the given key and its associated value, or raise KeyError.
         Best case running time: ??? under what conditions? [TODO]
@@ -138,7 +137,7 @@ class HashTable(object):
             self.size -= 1
         else:  # Not found
             raise KeyError("Key not found: {}".format(key))
-        
+
         if self.load_factor() < 0.35:
             self._resize(0)
 

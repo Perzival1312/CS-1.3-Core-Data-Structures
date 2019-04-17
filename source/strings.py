@@ -20,7 +20,7 @@ def _find(text, pattern, dne, empty, text_ind=0):
         """return the next index in text of the first char of pattern in text
         if the pattern is too long to fit in text after that index
         return an invalid index in text"""
-        while text[ind] != pattern[0]:
+        while ind < len(text) and text[ind] != pattern[0]:
             # pattern is still possible
             if ind < (len(text) - len(pattern)):
                 ind += 1
@@ -40,7 +40,7 @@ def _find(text, pattern, dne, empty, text_ind=0):
         if text[temp_ind] != letter:
             text_ind = find_next(text_ind + 1)
             pat_ind = 0
-            if text_ind > len(text):
+            if text_ind >= len(text):
                 return dne
         # iterate through while loop/pattern
         pat_ind += 1
@@ -91,14 +91,10 @@ def find_all_indexes(text, pattern):
     # get all next indexes
     while isinstance(possible_ind, int):
         indexes.append(possible_ind)
-        if possible_ind < (len(text) - len(pattern)) and (
-            possible_ind + len(pattern)
-        ) <= len(text):
-            # TODO: figure out why exactly i get index errors here and not in some other spots
-            try:
-                possible_ind = find_index(text, pattern, possible_ind + 1)
-            except IndexError:
-                possible_ind = None
+        if possible_ind < (len(text) - len(pattern)) \
+        and possible_ind + len(pattern) <= len(text):
+            # get next
+            possible_ind = find_index(text, pattern, possible_ind + 1)
         else:
             possible_ind = None
 
@@ -113,6 +109,9 @@ def test_string_algorithms(text, pattern):
     print("find_index({!r}, {!r}) => {}".format(text, pattern, index))
     indexes = find_all_indexes(text, pattern)
     print("find_all_indexes({!r}, {!r}) => {}".format(text, pattern, indexes))
+
+
+test_string_algorithms("abc", "b")
 
 
 def main():
