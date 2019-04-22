@@ -10,6 +10,9 @@ def _find(text, pattern, dne, empty, text_ind=0):
     'dne' - value to return if 'pattern' is not found in 'text'\n
     'empty' - value to return if 'pattern' is an empty string\n
     'text_ind' - Integer index of text to start searching from"""
+    # best case O(1) where length of pattern is 1 and its at the beginning of text
+    # worst case O(n*m) where n is length of text and m pattern and text has
+    # a repeating beginning segment of pattern
 
     assert isinstance(text_ind, int), "text_ind is not an int: {}".format(text_ind)
     # base case
@@ -48,7 +51,8 @@ def _find(text, pattern, dne, empty, text_ind=0):
 
 
 def contains(text, pattern):
-    """Return a boolean indicating whether pattern occurs in text."""
+    """Return a boolean indicating whether pattern occurs in text.
+    best O(1) worst O(n*m)"""
     assert isinstance(text, str), "text is not a string: {}".format(text)
     assert isinstance(pattern, str), "pattern is not a string: {}".format(text)
     # default values
@@ -59,7 +63,7 @@ def contains(text, pattern):
     # fix for True == 1 and False == 0
     if isinstance(result, bool):
         return result
-    elif isinstance(result, (float, int)):
+    elif isinstance(result, int):
         return True
     else:
         return False
@@ -67,7 +71,7 @@ def contains(text, pattern):
 
 def find_index(text, pattern, start=0):
     """Return the starting index of the first occurrence of pattern in text,
-    or None if not found."""
+    or None if not found. best O(1) worst O(n*m)"""
     assert isinstance(text, str), "text is not a string: {}".format(text)
     assert isinstance(pattern, str), "pattern is not a string: {}".format(text)
     # default values
@@ -78,7 +82,7 @@ def find_index(text, pattern, start=0):
 
 def find_all_indexes(text, pattern):
     """Return a list of starting indexes of all occurrences of pattern in text,
-    or an empty list if not found."""
+    or an empty list if not found. always worst case O(n*m) """
     assert isinstance(text, str), "text is not a string: {}".format(text)
     assert isinstance(pattern, str), "pattern is not a string: {}".format(text)
     # base case
