@@ -28,7 +28,7 @@ class LinkedStack(object):
 
     def push(self, item):
         """Insert the given item on the top of this stack.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(1) just reassigning vars"""
         self.list.prepend(item)
 
     def peek(self):
@@ -41,7 +41,7 @@ class LinkedStack(object):
     def pop(self):
         """Remove and return the item on the top of this stack,
         or raise ValueError if this stack is empty.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(1) just reassigning vars"""
         if not self.is_empty():
             to_remove = self.list.head.data
             self.list.delete(to_remove)
@@ -74,7 +74,7 @@ class ArrayStack(object):
 
     def push(self, item):
         """Insert the given item on the top of this stack.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(1) just reassigning vars"""
         # self.list.append(item)
         self.list.insert(0, item)
 
@@ -88,7 +88,7 @@ class ArrayStack(object):
     def pop(self):
         """Remove and return the item on the top of this stack,
         or raise ValueError if this stack is empty.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(1) just reassigning vars"""
         if not self.is_empty():
             to_remove = self.list[0]
             self.list.remove(to_remove)
