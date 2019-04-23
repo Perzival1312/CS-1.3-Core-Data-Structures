@@ -30,7 +30,7 @@ class InheritSet(set):
         return InheritSet(super().difference(other_set))
 
     def is_subset(self, other_set):
-        return InheritSet(super().issubset(other_set))
+        return super().issubset(other_set)
 
 
 
