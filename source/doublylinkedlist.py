@@ -49,10 +49,17 @@ class DblLinkedList(object):
         return self.size + 1
 
     def __getitem__(self, ind):
+        if not (0 <= ind < self.size):
+            raise ValueError("List index out of range: {}".format(ind))
         node = self.head
-        for _ in range(ind - 1):
-            node = node.next
+        if ind > 0:
+            for _ in range(ind):
+                node = node.next
         return node
+    
+    def get_at_index(self, ind):
+        # make similar to singly linked list
+        return self[ind].data
 
     def items(self):
         """Return a list (dynamic array) of all items in this linked list.
@@ -79,6 +86,31 @@ class DblLinkedList(object):
         Running time: O(n) Why and under what conditions?
                 searching through all nodes"""
         return self.size
+
+    def insert_at_index(self, index, item):
+        """Insert the given item at the given index in this linked list, or
+        raise ValueError if the given index is out of range of the list size.
+        Best case running time: O(1) just changing var values
+        Worst case running time: O(1) just changing var values"""
+        # Check if the given index is out of range and if so raise an error
+        if not (0 <= index <= self.size):
+            raise ValueError("List index out of range: {}".format(index))
+        # at beginning
+        if index == 0:
+            self.prepend(item)
+        # at end
+        elif index == self.size:
+            self.append(item)
+        # in middle
+        else:
+            new_node = Node(item)
+            self.size += 1
+            current = self[index]
+            previous = current.prev
+            previous.next = new_node
+            new_node.prev = previous
+            new_node.next = current
+            current.prev = new_node
 
     def append(self, item):
         """Insert the given item at the tail of this linked list.
@@ -134,10 +166,7 @@ class DblLinkedList(object):
                 item is head therefore only chcking once
         Worst case running time: O(n) Why and under what conditions?
                 item is tail chcking entire ll"""
-        # TODO: Loop through all nodes to find one whose data matches given item
-        # TODO: Update previous node to skip around node with matching data
-        # TODO: Otherwise raise error to tell user that delete has failed
-        # Hint: raise ValueError('Item not found: {}'.format(item))
+
         node = self.head
         try:
             prev_node = node.prev
