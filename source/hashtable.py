@@ -2,6 +2,18 @@
 
 from linkedlist import LinkedList
 
+class HashIter(object):
+    def __init__(self, item):
+        self.item = item
+        self.n = 0
+
+    def __next__(self):
+        try:
+            bucket = self.item[self.n]
+        except:
+            raise StopIteration
+        self.n += 1
+        return bucket
 
 class HashTable(object):
     def __init__(self, init_size=8):
@@ -17,6 +29,9 @@ class HashTable(object):
     def __repr__(self):
         """Return a string representation of this hash table."""
         return "HashTable({!r})".format(self.items())
+
+    def __iter__(self):
+        return HashIter(self.buckets)
 
     def _bucket_index(self, key):
         """Return the bucket index where the given key would be stored."""
