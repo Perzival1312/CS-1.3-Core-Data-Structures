@@ -2,8 +2,7 @@
 
 import sys
 
-
-def _find(text, pattern, dne, empty, text_ind=0):
+def _find(text, pattern, dne, text_ind=0):
     """Finds the first occurance of 'pattern' in 'text' after 'text_ind'\n
     'text' - String that is being searched\n
     'pattern' - String that is being searched for\n
@@ -15,9 +14,6 @@ def _find(text, pattern, dne, empty, text_ind=0):
     # a repeating beginning segment of pattern
 
     assert isinstance(text_ind, int), "text_ind is not an int: {}".format(text_ind)
-    # base case
-    if pattern == "":
-        return empty
 
     def find_next(ind):
         """return the next index in text of the first char of pattern in text
@@ -55,17 +51,14 @@ def contains(text, pattern):
     best O(1) worst O(n*m)"""
     assert isinstance(text, str), "text is not a string: {}".format(text)
     assert isinstance(pattern, str), "pattern is not a string: {}".format(text)
-    # default values
-    empty = True
-    dne = False
+    # default value
+    dne = None
 
-    result = _find(text, pattern, dne, empty)
-    # fix for True == 1 and False == 0
-    if isinstance(result, bool):
-        return result
-    elif isinstance(result, int):
+    result = _find(text, pattern, dne)
+    # pattern exists in text
+    if result is not None:
         return True
-    else:
+    else: # DNE
         return False
 
 
@@ -74,10 +67,9 @@ def find_index(text, pattern, start=0):
     or None if not found. best O(1) worst O(n*m)"""
     assert isinstance(text, str), "text is not a string: {}".format(text)
     assert isinstance(pattern, str), "pattern is not a string: {}".format(text)
-    # default values
+    # default value
     dne = None
-    empty = 0
-    return _find(text, pattern, dne, empty, start)
+    return _find(text, pattern, dne, start)
 
 
 def find_all_indexes(text, pattern):
@@ -85,9 +77,6 @@ def find_all_indexes(text, pattern):
     or an empty list if not found. always worst case O(n*m) """
     assert isinstance(text, str), "text is not a string: {}".format(text)
     assert isinstance(pattern, str), "pattern is not a string: {}".format(text)
-    # base case
-    if pattern == "":
-        return [x for x in range(0, len(text))]
 
     indexes = []
     # get first possible index
@@ -101,6 +90,9 @@ def find_all_indexes(text, pattern):
             possible_ind = find_index(text, pattern, possible_ind + 1)
         else:
             possible_ind = None
+    # edge
+    if pattern == "":
+        return indexes[:-1]
 
     return indexes
 
@@ -113,9 +105,6 @@ def test_string_algorithms(text, pattern):
     print("find_index({!r}, {!r}) => {}".format(text, pattern, index))
     indexes = find_all_indexes(text, pattern)
     print("find_all_indexes({!r}, {!r}) => {}".format(text, pattern, indexes))
-
-
-test_string_algorithms("abc", "b")
 
 
 def main():

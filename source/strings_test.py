@@ -22,6 +22,8 @@ class StringsTest(unittest.TestCase):
         assert contains("abc", "ac") is False  # important to test close cases
         assert contains("abc", "az") is False  # first letter, but not last
         assert contains("abc", "abz") is False  # first 2 letters, but not last
+        b = 'b'
+        assert contains(u'abc', f'a{repr(b)}') is False
 
     def test_contains_with_complex_patterns(self):
         # Difficult test cases (examples) with complex patterns
