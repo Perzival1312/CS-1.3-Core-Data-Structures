@@ -138,8 +138,8 @@ class HashTable(object):
         else:  # Not found
             raise KeyError("Key not found: {}".format(key))
 
-        if self.load_factor() < 0.35:
-            self._resize(0)
+        # if self.load_factor() < 0.35:
+        #     self._resize(0)
 
     def _resize(self, new_size=None):
         """Resize this hash table's buckets and rehash all key-value entries.
@@ -155,8 +155,10 @@ class HashTable(object):
             new_size = len(self.buckets) / 2  # Half size
         new_size = int(new_size)
         temp_list = self.items()
+        # self = HashTable(new_size) # only changes in local scope
         self.buckets = [LinkedList() for i in range(new_size)]
         self.size = 0
+        # self.__init__(new_size) # calling dunder method acccepability??
         for item in temp_list:
             self.set(item[0], item[1])
 
