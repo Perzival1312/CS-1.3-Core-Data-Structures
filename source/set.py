@@ -34,8 +34,19 @@ class InheritSet(set):
 
 
 
-
-
+# hashtable init call in resize calls this sets init
+# even though printing self the line before prints a 
+# hashtable so not too sure about this
+# also this is bad bc its exposing a LOT of methods 
+# it shouoldn't.
+class dictSet(HashTable):
+    def __init__(self, elements=None):
+        super().__init__()
+        self.size = 0
+        if elements is not None:
+            for item in elements:
+                self.size += 1
+                self.set(item, None)
 
 
 

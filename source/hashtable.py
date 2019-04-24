@@ -171,9 +171,10 @@ class HashTable(object):
         new_size = int(new_size)
         temp_list = self.items()
         # self = HashTable(new_size) # only changes in local scope
-        self.buckets = [LinkedList() for i in range(new_size)]
-        self.size = 0
-        # self.__init__(new_size) # calling dunder method acccepability??
+        # self.buckets = [LinkedList() for i in range(new_size)]
+        # self.size = 0
+        print(self)
+        self.__init__(new_size) # calling dunder method acccepability??
         for item in temp_list:
             self.set(item[0], item[1])
 
