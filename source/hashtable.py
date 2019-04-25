@@ -33,6 +33,9 @@ class HashTable(object):
     def __iter__(self):
         return HashIter(self.buckets)
 
+    def __len__(self):
+        return self.size
+
     def _bucket_index(self, key):
         """Return the bucket index where the given key would be stored."""
         return hash(key) % len(self.buckets)
