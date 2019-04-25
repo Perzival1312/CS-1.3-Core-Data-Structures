@@ -17,9 +17,7 @@ class SetTest(unittest.TestCase):
     def test_init_without_elements(self):
         s = mySet()
         assert s.size == 0
-        assert s.container.items() == []
-        assert s.container.keys() == []
-        assert s.container.values() == []
+        assert len(s.container) == 0
 
     def test_contains(self):
         names = ["Winnie", "Kojin", "Brian", "Nabil", "Julia", "Alex", "Nick"]
@@ -34,7 +32,7 @@ class SetTest(unittest.TestCase):
     def test_add(self):
         s = mySet()
         assert s.size == 0
-        assert s.container.items() == []
+        assert len(s.container) == 0
         s.add("something")
         assert s.size == 1
         self.assertCountEqual(s.container.keys(), ["something"])

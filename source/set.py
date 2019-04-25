@@ -49,8 +49,83 @@ class dictSet(HashTable):
                 self.set(item, None)
 
 
+# this seems really hacky to modify the builtin list class
+# TODO: check for accepability.
+class Array(list):
+    def __init__(self, elements=None):
+        super().__init__(elements)
+    
+    def items(self):
+        return self
+
+    def keys(self):
+        return self
+
+    def values(self):
+        return self
 
 
+
+class arraySet():
+    def __init__(self, elements=None):
+        self.size = 0
+        self.container = []
+        if elements is not None:
+            for item in elements:
+                self.container.append(item)
+                self.size += 1
+
+    def __contains__(self, element):
+        # NEEDS TO BE CONSTANT TIME!!!! therefore hashtable underlying datatype
+        for item in self.container:
+            if item == element:
+                return True
+        return False
+    
+#     add(element) - add element to this set, if not present already
+    def add(self, element):
+        self.size += 1
+        self.container.append(element)
+    
+#     remove(element) - remove element from this set, if present, or else raise KeyError
+    def remove(self, element):
+        self.size -= 1
+        self.container.remove(element)
+    
+#     union(other_set) - return a new set that is the union of this set and other_set
+    def union(self, other_set):
+        union = arraySet()
+        print(self.container)
+        for item in self.container:
+            union.add(item)
+
+        for item in other_set.container:
+            if item not in union:
+                union.add(item)
+        return union
+
+#     intersection(other_set) - return a new set that is the intersection of this set and other_set
+    def intersection(self, other_set):
+        inter = arraySet()
+        for item in self.container:
+            if item in other_set:
+                inter.add(item)
+        return inter
+        
+#     difference(other_set) - return a new set that is the difference of this set and other_set
+    def difference(self, other_set):
+        diff = arraySet()
+        for item in self.container:
+            if item not in other_set:
+                diff.add(item)
+        return diff
+
+#     is_subset(other_set) - return a boolean indicating whether other_set is a subset of this set
+    def is_subset(self, other_set):
+        for item in self.container:
+            if item not in other_set:
+                return False
+        return True
 
 
 
