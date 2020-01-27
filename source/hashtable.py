@@ -51,7 +51,7 @@ class HashTable(object):
         # Collect all keys in each of the buckets
         all_keys = []
         for bucket in self.buckets:
-            for key, value in bucket.items():
+            for key, _ in bucket.items():
                 all_keys.append(key)
         return all_keys
 
@@ -61,7 +61,7 @@ class HashTable(object):
         # Collect all values in each of the buckets
         all_values = []
         for bucket in self.buckets:
-            for key, value in bucket.items():
+            for _, value in bucket.items():
                 all_values.append(value)
         return all_values
 
