@@ -80,8 +80,8 @@ def is_palindrome(text):
     text = text.lower()
     if not text:
         return True
-    # return is_palindrome_iterative(text)
-    return is_palindrome_recursive(text)
+    return is_palindrome_iterative(text)
+    # return is_palindrome_recursive(text)
     # return is_palindrome_one_liner(text)
 
 
@@ -91,11 +91,11 @@ def is_palindrome_iterative(text):
     left = 0
     right = len(text) - 1
     # Check each letter only once
-    for _ in range(0, (len(text) // 2) + 1):
+    while left < right:
         # ignore everything but letters
-        while text[left] not in LETTERS and left <= right:
+        while text[left] not in LETTERS:
             left += 1
-        while text[right] not in LETTERS and left <= right:
+        while text[right] not in LETTERS:
             right -= 1
         # not palindromic
         if text[left] != text[right]:
