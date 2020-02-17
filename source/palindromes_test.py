@@ -80,6 +80,7 @@ class TestPalindromes(unittest.TestCase):
         assert is_palindrome("ABCDDCBZ") is False
         assert is_palindrome("AAAAZAAA") is False
         assert is_palindrome("AAAAAAAZ") is False
+        assert is_palindrome(",,,,,,AA") is True
 
     def test_longest(self):
         try:
@@ -93,8 +94,9 @@ class TestPalindromes(unittest.TestCase):
             assert is_palindrome(pal) is True
 
         except FileNotFoundError:
-            pal = "longest"
-            assert is_palindrome(pal) is False
+            print('somme shit fucked up!')
+        #     pal = "longest"
+        #     assert is_palindrome(pal) is False
 
 
 if __name__ == "__main__":

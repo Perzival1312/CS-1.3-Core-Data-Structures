@@ -11,6 +11,9 @@
 # 11.7 ms ± 1.06 ms per loop (mean ± std. dev. of 100 runs, 1000 loops each)
 ## ------------------------------------ ##
 
+## ------------------------------------ ##
+# http://norvig.com/pal21txt.html
+## ------------------------------------ ##
 
 ## ------------------------------------ ##
 # http://code.activestate.com/recipes/474088/
@@ -136,8 +139,7 @@ def is_palindrome_recursive(text, left=0, right=None):
         right -= 1
         # Recursive call
         return is_palindrome_recursive(text, left, right)
-    # exec(sys._getframe().f_code, {text:text, left:0, rights:len(text)-1})
-    # print(sys._getframe().f_code.co_stacksize)
+
     # PALINDROMIC!!
     return True
 
