@@ -35,8 +35,8 @@ def binary_search(array, item):
     array = sorted(array)
     # Just to make debugging eaier
     sys.setrecursionlimit(75)
-    return binary_search_iterative(array, item)
-    # return binary_search_recursive(array, item)
+    # return binary_search_iterative(array, item)
+    return binary_search_recursive(array, item)
 
 
 def binary_search_iterative(array, item):
@@ -63,6 +63,9 @@ def binary_search_recursive(array, item, left=0, right=None):
     # assign right bound in initial call
     if right == None:
         right = len(array) - 1
+    # Catch end of checking
+    if right < left:
+        return None
     # set index based on bounds
     index = (left + right) // 2
     # check if index is correct for item
