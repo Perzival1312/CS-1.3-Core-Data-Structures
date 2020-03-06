@@ -1,7 +1,16 @@
 #!python3
 
-from set import MySet as mySet
+# from set import MySet as mySet
+import set
 import unittest
+from set import (
+    MySet,
+    arraySet,
+    InheritSet
+)
+
+
+mySet = arraySet
 
 class SetTest(unittest.TestCase):
     def test_init_with_elements(self):

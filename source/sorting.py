@@ -6,6 +6,12 @@ def is_sorted(items):
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
     # TODO: Check that all adjacent items are in order, return early if not
+    if len(items) <= 1:
+        return True
+    for ind in range(len(items)-1):
+        if items[ind] > items[ind+1]:
+            return False
+    return True
 
 
 def bubble_sort(items):
@@ -15,6 +21,14 @@ def bubble_sort(items):
     TODO: Memory usage: ??? Why and under what conditions?"""
     # TODO: Repeat until all items are in sorted order
     # TODO: Swap adjacent items that are out of order
+    # assert is_sorted(items) is False
+    while is_sorted(items) is False and len(items) > 1:
+        for ind in range(len(items)-1):
+            item = items[ind]
+            if item > items[ind+1]:
+                temp = items[ind]
+                items[ind] = items[ind+1]
+                items[ind+1] = temp
 
 
 def selection_sort(items):
@@ -25,6 +39,16 @@ def selection_sort(items):
     # TODO: Repeat until all items are in sorted order
     # TODO: Find minimum item in unsorted items
     # TODO: Swap it with first unsorted item
+    i = 0
+    while is_sorted(items) is False and len(items) > 1:
+        mini = len(items)-1
+        for ind in range(i, len(items)-1):
+            if items[ind] < items[mini]:
+                mini = ind
+        temp = items[i]
+        items[i] = items[mini]
+        items[mini] = temp
+        i += 1
 
 
 def insertion_sort(items):
@@ -35,6 +59,18 @@ def insertion_sort(items):
     # TODO: Repeat until all items are in sorted order
     # TODO: Take first unsorted item
     # TODO: Insert it in sorted order in front of items
+    i=0 #index at the end of sorted area
+    to_sort = i+1 # index of item being sorted
+    while is_sorted(items) is False and len(items) > 1:
+        
+
+
+        print(items)
+        temp = items[i+1]
+        items.pop(i+1)
+        items.insert(to_sort, temp)
+        i += 1
+        
 
 
 def merge(items1, items2):

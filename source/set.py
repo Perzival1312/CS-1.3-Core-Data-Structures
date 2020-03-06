@@ -49,27 +49,13 @@ class dictSet(HashTable):
                 self.set(item, None)
 
 
-# this seems really hacky to modify the builtin list class
-# TODO: check for accepability.
-class Array(list):
-    def __init__(self, elements=None):
-        super().__init__(elements)
-    
-    def items(self):
-        return self
-
-    def keys(self):
-        return self
-
-    def values(self):
-        return self
 
 
 
 class arraySet():
     def __init__(self, elements=None):
         self.size = 0
-        self.container = []
+        self.container = Array()
         if elements is not None:
             for item in elements:
                 self.container.append(item)
@@ -180,13 +166,29 @@ class arraySet():
 
 
 
+# this seems really hacky to modify the builtin list class
+# TODO: check for accepability.
+class Array(list):
+    def __init__(self, elements=None):
+        if elements is not None:
+            super().__init__(elements)
+        else:
+            super().__init__()
+    
+    def items(self):
+        return self
+
+    def keys(self):
+        return self
+
+    def values(self):
+        return self
 
 
-# starting down here for the LULZ
 class MySet(object):
 #     __init__(elements=None) - initialize a new empty set structure, and add each element if a sequence is given
     def __init__(self, elements=None):
-        self.container = HashTable()
+        self.container = Hashtable()
 #     size - property that tracks the number of elements in constant time
         self.size = self.container.size
         if elements is not None:
@@ -203,25 +205,28 @@ class MySet(object):
     def __iter__(self):
         return self.container.__iter__()
 
-#     contains(element) - return a boolean indicating whether element is in this set
+# return a boolean indicating whether element is in this set
     def __contains__(self, element):
-        # NEEDS TO BE CONSTANT TIME!!!! therefore hashtable underlying datatype
+        # Needs to be constant time to be efficient
         return self.container.contains(element)
     
-#     add(element) - add element to this set, if not present already
+    def contains(self, element):
+        return element in self.container
+    
+# add element to this set, if not present already
     def add(self, element):
         self.size += 1
         self.container.set(element, None)
     
-#     remove(element) - remove element from this set, if present, or else raise KeyError
+# remove element from this set, if present, or else raise KeyError
     def remove(self, element):
         self.size -= 1
         self.container.delete(element)
     
-#     union(other_set) - return a new set that is the union of this set and other_set
+# return a new set that is the union of this set and other_set
     def union(self, other_set):
         union = MySet()
-        print(self.container)
+
         for key, _ in self.container.items():
             union.add(key)
 
@@ -231,17 +236,16 @@ class MySet(object):
         return union
 
     
-#     intersection(other_set) - return a new set that is the intersection of this set and other_set
+# return a new set that is the intersection of this set and other_set
     def intersection(self, other_set):
         union = MySet()
         for key, _ in self.container.items():
             if key in other_set:
                 union.add(key)
-        print(union)
         return union
         
     
-#     difference(other_set) - return a new set that is the difference of this set and other_set
+# return a new set that is the difference of this set and other_set
     def difference(self, other_set):
         union = MySet()
         for key, _ in self.container.items():

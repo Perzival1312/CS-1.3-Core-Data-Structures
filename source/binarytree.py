@@ -340,6 +340,24 @@ class BinarySearchTree(object):
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
         # Traverse in-order without using recursion (stretch challenge)
+        
+        # while node.left is not None:
+        #     node = node.left
+
+
+        # # step everytime looking at root
+        # root_lookup = 0
+        # node = self.root
+        # while root_lookup < 3:
+        #     if node == self.root:
+        #         root_lookup +=1
+        #     if node.left is not None:
+        #         node = node.left
+        #     elif node.right is not None:
+        #         node = node.right
+        #     else: # node has no children aka a leaf
+        #         ...# go back up
+
 
     def items_pre_order(self):
         """Return a pre-order list of all items in this binary search tree."""
